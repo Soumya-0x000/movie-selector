@@ -1,12 +1,7 @@
-import React, { Fragment, useState } from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import React from 'react';
+import { OutlinedInput, InputLabel, MenuItem, FormControl, ListItemText, Select, Checkbox } from '@mui/material';
 import ReactStars from "react-rating-stars-component";
+import { useMovieContext } from '../MovieContext';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,15 +17,15 @@ const MenuProps = {
 const names = ['Any Rating', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const RatingBtn = () => {
-    const [selectedRatings, setSelectedRatings] = useState([]);
+    const { selectedRatings, handleRatingChange } = useMovieContext();
 
     const handleChange = (event) => {
-        const {target: { value }} = event;
+        const { target: { value } } = event;
 
         if (value.includes("Any Rating")) {
-            setSelectedRatings(["Any Rating"]);
+            handleRatingChange(["Any Rating"]);
         } else {
-            setSelectedRatings(value);
+            handleRatingChange(value);
         }
     };
 
@@ -39,17 +34,17 @@ const RatingBtn = () => {
             <FormControl sx={{ width: 300 }}>
                 <InputLabel id="demo-multiple-checkbox-label">Rating</InputLabel>
                 <Select
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
-                multiple
-                value={selectedRatings}
-                onChange={handleChange}
-                input={<OutlinedInput label="Rating" />}
-                renderValue={(selected) => selected.join(', ')}
-                MenuProps={MenuProps}>
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={selectedRatings}
+                    onChange={handleChange}
+                    input={<OutlinedInput label="Rating" />}
+                    renderValue={(selected) => selected.join(', ')}
+                    MenuProps={MenuProps}>
                     {names.map((rating) => (
                         <MenuItem key={rating} value={rating}>
-                            <Checkbox checked={selectedRatings.indexOf(rating) > -1} />
+                            <Checkbox checked={selectedRatings.includes(rating)} />
                             <ListItemText primary={rating} />
                             {rating !== 'Any Rating' && (
                                 <ReactStars
