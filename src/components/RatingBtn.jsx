@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import ReactStars from 'react-rating-stars-component';
+import ReactStars from "react-rating-stars-component";
 import { useMovieContext } from '../MovieContext';
 
 const ITEM_HEIGHT = 48;
@@ -20,18 +20,13 @@ const MenuProps = {
     },
 };
 
-const ratings = ['Any Rating', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 const RatingBtn = () => {
     const { selectedRatings, handleRatingChange } = useMovieContext();
+    const ratingOptions = ["Any Rating", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const handleChange = (event) => {
         const { target: { value } } = event;
-        if (value.includes('Any Rating')) {
-            handleRatingChange(['Any Rating']);
-        } else {
-            handleRatingChange(value);
-        }
+        handleRatingChange(value);
     };
 
     return (
@@ -47,11 +42,11 @@ const RatingBtn = () => {
                     input={<OutlinedInput label="Rating" />}
                     renderValue={(selected) => selected.join(', ')}
                     MenuProps={MenuProps}>
-                    {ratings.map((rating) => (
+                    {ratingOptions.map((rating) => (
                         <MenuItem key={rating} value={rating}>
                             <Checkbox checked={selectedRatings.indexOf(rating) > -1} />
                             <ListItemText primary={rating} />
-                            {rating !== 'Any Rating' && (
+                            {typeof rating === 'number' && (
                                 <ReactStars
                                     count={10}
                                     value={rating}

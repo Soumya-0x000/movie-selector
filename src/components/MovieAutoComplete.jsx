@@ -1,10 +1,29 @@
 import React from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
-import ReactStars from 'react-rating-stars-component';
+import ReactStars from "react-rating-stars-component";
 import { useMovieContext } from '../MovieContext';
 
 const MovieAutoComplete = () => {
-    const { movies, selectedMovie, handleMovieSelect } = useMovieContext();
+    const { movies, searchQuery, handleSearchQueryChange, selectedRatings, selectedGenres } = useMovieContext();
+    const [selectedMovie, setSelectedMovie] = React.useState(null);
+
+    const handleInputChange = (event, newInputValue) => {
+        handleSearchQueryChange(newInputValue);
+    };
+
+    const handleChange = (event, newValue) => {
+        setSelectedMovie(newValue);
+    };
+
+    React.useEffect(() => {
+        if (selectedMovie) {
+            const ratingMatch = selectedRatings.includes("Any Rating") || selectedRatings.includes(selectedMovie.rating);
+            const genreMatch = selectedGenres.includes("Any Genre") || selectedGenres.includes(selectedMovie.category);
+            if (!ratingMatch || !genreMatch) {
+                setSelectedMovie(null);
+            }
+        }
+    }, [selectedRatings, selectedGenres]);
 
     return (
         <Autocomplete
@@ -12,9 +31,11 @@ const MovieAutoComplete = () => {
             sx={{ 'inline-size': 500 }}
             options={movies}
             autoHighlight
-            value={selectedMovie}
-            onChange={(event, newValue) => handleMovieSelect(newValue)}
             getOptionLabel={(option) => option.title}
+            inputValue={searchQuery}
+            onInputChange={handleInputChange}
+            value={selectedMovie}
+            onChange={handleChange}
             renderOption={(props, option) => {
                 const { key, ...optionProps } = props;
                 return (
