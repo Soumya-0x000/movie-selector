@@ -9,7 +9,7 @@ const MovieAutoComplete = () => {
     return (
         <Autocomplete
             id="movie-select-demo"
-            sx={{ width: 500 }}
+            sx={{ 'inline-size': 500 }}
             options={movies}
             autoHighlight
             value={selectedMovie}
@@ -38,7 +38,7 @@ const MovieAutoComplete = () => {
                                 emptyIcon={<i className="far fa-star"></i>}
                                 halfIcon={<i className="fa fa-star-half-alt"></i>}
                                 fullIcon={<i className="fa fa-star"></i>}
-                                activeColor="#D6DC09"
+                                activeColor="#36CB68"
                                 edit={false}
                             />
                         </div>

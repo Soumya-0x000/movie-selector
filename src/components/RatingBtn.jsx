@@ -14,8 +14,8 @@ const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
         style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
+            'block-size': ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            'inline-size': 250,
         },
     },
 };
@@ -36,7 +36,7 @@ const RatingBtn = () => {
 
     return (
         <div>
-            <FormControl sx={{ width: 300 }}>
+            <FormControl sx={{ 'inline-size': 300 }}>
                 <InputLabel id="demo-multiple-checkbox-label">Rating</InputLabel>
                 <Select
                     labelId="demo-multiple-checkbox-label"
@@ -60,7 +60,7 @@ const RatingBtn = () => {
                                     emptyIcon={<i className="far fa-star"></i>}
                                     halfIcon={<i className="fa fa-star-half-alt"></i>}
                                     fullIcon={<i className="fa fa-star"></i>}
-                                    activeColor="#D6DC09"
+                                    activeColor="#36CB68"
                                     edit={false}
                                 />
                             )}
