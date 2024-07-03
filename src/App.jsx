@@ -14,6 +14,6 @@ const App = () => {
             </div>
         </MovieProvider>
     );
-}
+};
 
 export default App;

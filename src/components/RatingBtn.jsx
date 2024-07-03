@@ -1,6 +1,12 @@
 import React from 'react';
-import { OutlinedInput, InputLabel, MenuItem, FormControl, ListItemText, Select, Checkbox } from '@mui/material';
-import ReactStars from "react-rating-stars-component";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import ReactStars from 'react-rating-stars-component';
 import { useMovieContext } from '../MovieContext';
 
 const ITEM_HEIGHT = 48;
@@ -14,16 +20,15 @@ const MenuProps = {
     },
 };
 
-const names = ['Any Rating', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const ratings = ['Any Rating', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const RatingBtn = () => {
     const { selectedRatings, handleRatingChange } = useMovieContext();
 
     const handleChange = (event) => {
         const { target: { value } } = event;
-
-        if (value.includes("Any Rating")) {
-            handleRatingChange(["Any Rating"]);
+        if (value.includes('Any Rating')) {
+            handleRatingChange(['Any Rating']);
         } else {
             handleRatingChange(value);
         }
@@ -42,9 +47,9 @@ const RatingBtn = () => {
                     input={<OutlinedInput label="Rating" />}
                     renderValue={(selected) => selected.join(', ')}
                     MenuProps={MenuProps}>
-                    {names.map((rating) => (
+                    {ratings.map((rating) => (
                         <MenuItem key={rating} value={rating}>
-                            <Checkbox checked={selectedRatings.includes(rating)} />
+                            <Checkbox checked={selectedRatings.indexOf(rating) > -1} />
                             <ListItemText primary={rating} />
                             {rating !== 'Any Rating' && (
                                 <ReactStars

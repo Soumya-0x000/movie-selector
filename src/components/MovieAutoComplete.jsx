@@ -1,29 +1,19 @@
 import React from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
-import ReactStars from "react-rating-stars-component";
+import ReactStars from 'react-rating-stars-component';
 import { useMovieContext } from '../MovieContext';
 
 const MovieAutoComplete = () => {
-    const { movies, selectedRatings, selectedGenres, filterMovies } = useMovieContext();
-
-    // Function to filter movies based on selected ratings and genres
-    const filterMoviesLocal = () => {
-        return movies.filter(movie => {
-            const ratingMatch = selectedRatings.length === 0 || selectedRatings.includes(movie.rating);
-            const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.category);
-            return ratingMatch && genreMatch;
-        });
-    };
-
-    // Initial filtered movies
-    const filteredMovies = filterMoviesLocal();
+    const { movies, selectedMovie, handleMovieSelect } = useMovieContext();
 
     return (
         <Autocomplete
             id="movie-select-demo"
             sx={{ width: 500 }}
-            options={filteredMovies}
+            options={movies}
             autoHighlight
+            value={selectedMovie}
+            onChange={(event, newValue) => handleMovieSelect(newValue)}
             getOptionLabel={(option) => option.title}
             renderOption={(props, option) => {
                 const { key, ...optionProps } = props;

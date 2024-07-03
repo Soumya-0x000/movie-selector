@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { movieData } from "../data/data";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { useMovieContext } from '../MovieContext';
+import { movieData } from '../data/data';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -30,9 +30,8 @@ const MovieGenre = () => {
 
     const handleChange = (event) => {
         const { target: { value } } = event;
-
-        if (value.includes("Any Genre")) {
-            handleGenreChange(["Any Genre"]);
+        if (value.includes('Any Genre')) {
+            handleGenreChange(['Any Genre']);
         } else {
             handleGenreChange(value);
         }
